@@ -2,18 +2,7 @@ import asyncHandler from "express-async-handler";
 import Category from "../models/category.js";
 import Sequelize from "sequelize";
 const Op = Sequelize.Op;
-// @desc    Create new category
-// @route   POST /api/v1/categories
-// @access  Private/Admin    getCategoryCtrl
-//asyncHandler(async (req, res, next) => {
-//res.render("admin/category/add-category");
-// res.render("admin/category/add-category");
-// res.json({
-//   status: "success",
-//   message: "Category list successfully",
-// });
-//});
-//const category = await
+
 export const getCategoryCtrl = asyncHandler(async (req, res, next) => {
   res.render("admin/category/add-category");
 });
@@ -43,7 +32,7 @@ export const postgetCategoryCtrl = (req, res, next) => {
     },
   }).then((data) => {
     if (data) {
-      req.flash("error", "کتگوری با این نام وجود دارد");
+      req.flash("error", "Category with this name is exist");
       res.redirect("/admin/add-category");
     } else {
       Category.create({
@@ -51,10 +40,10 @@ export const postgetCategoryCtrl = (req, res, next) => {
         status: req.body.status,
       }).then((category) => {
         if (category) {
-          req.flash("success", "با موفقیت ثبت شد");
+          req.flash("success", "category added succesfuly");
           res.redirect("/admin/add-category");
         } else {
-          req.flash("error", "خطایی رخ داده");
+          req.flash("error", "somthing went wrong");
           res.redirect("/admin/add-category");
         }
       });
@@ -122,7 +111,7 @@ export const EditCategoryCtrl = asyncHandler(async (req, res, next) => {
   }).then((data) => {
     if (data) {
       //console.log(data);
-      req.flash("error", "کتگوری وجود دارد");
+      req.flash("error", "Category is exist");
       res.redirect("/admin/edit-category/" + req.params.cat_id);
     } else {
       Category.update(
@@ -137,9 +126,9 @@ export const EditCategoryCtrl = asyncHandler(async (req, res, next) => {
         }
       ).then((data) => {
         if (data) {
-          req.flash("success", "کتگوری اپدیت شد");
+          req.flash("success", "Category updated");
         } else {
-          req.flash("error", "کتگوری اپدیت نشد");
+          req.flash("error", "somthing went wrong with update");
         }
         res.redirect("/admin/edit-category/" + req.params.cat_id);
       });
@@ -163,9 +152,9 @@ export const deleteCategory = asyncHandler(async (req, res, next) => {
         },
       }).then((status) => {
         if (status) {
-          req.flash("success", "کتگوری جذف شد");
+          req.flash("success", "Category deleted");
         } else {
-          req.flash("error", "کتگوری حذف نشد");
+          req.flash("error", "somthing went wromg");
         }
         res.redirect("/admin/list-category");
       });

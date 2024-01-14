@@ -53,8 +53,8 @@
                                         <button class="btn btn-danger">Inactive</button>
                                     <% }%>
                                   </td>
-                                  <td>
-                                    <a href="/admin/edit-category/<%= data.id %>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                  <td class="d-flex">
+                                    <a href="/admin/edit-category/<%= data.id %>" class="btn btn-primary mr-2"><i class="fa fa-edit"></i></a>
                                     <form method="post" action="/admin/delete-category" id="frm-delete-category-<%= data.id %>">
                                         <input type="hidden" value="<%= data.id %>" name="category_id">
                                     </form>
