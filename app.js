@@ -2,17 +2,15 @@
 import createError from "http-errors";
 // var express = require("express");
 import express from "express";
-
 // var path = require("path");
 import path, { dirname } from "path";
 // var cookieParser = require("cookie-parser");
 import cookieParser from "cookie-parser";
-
 import { fileURLToPath } from "url";
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+import flash from "express-flash";
+import session from "express-session";
 import sequelize from "./models/index.js";
 // var logger = require("morgan");
 import logger from "morgan";
@@ -32,6 +30,17 @@ const app = express();
 // app.set("views", path.join(__dirname, "views"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+// app.use(express.cookieParser("keyboard cat"));
+app.use(
+  session({
+    name: "my_session",
+    secret: "my_secret",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(flash());
 
 app.use(logger("dev"));
 app.use(express.json());
