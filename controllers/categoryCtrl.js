@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Category from "../models/category.js";
-
+import Sequelize from "sequelize";
+const Op = Sequelize.Op;
 // @desc    Create new category
 // @route   POST /api/v1/categories
 // @access  Private/Admin    getCategoryCtrl
@@ -34,27 +35,33 @@ export const getCategoryCtrl = asyncHandler(async (req, res, next) => {
 // });
 
 export const postgetCategoryCtrl = (req, res, next) => {
-  const category = Category.create({
-    name: req.body.name,
-    status: req.body.status,
-    })
-    .then(()=>{
+  Category.findOne({
+    where: {
+      name: {
+        [Op.eq]: req.body.name,
+      },
+    },
+  }).then((data) => {
+    if (data) {
+      req.flash("error", "کتگوری با این نام وجود دارد");
       res.redirect("/admin/add-category");
-    });
-  }
-  // res.redirect("/admin");
-
-
-
-
-
-
-
-
-
-
-
-
+    } else {
+      Category.create({
+        name: req.body.name,
+        status: req.body.status,
+      }).then((category) => {
+        if (category) {
+          req.flash("success", "با موفقیت ثبت شد");
+          res.redirect("/admin/add-category");
+        } else {
+          req.flash("error", "خطایی رخ داده");
+          res.redirect("/admin/add-category");
+        }
+      });
+    }
+  });
+};
+// res.redirect("/admin");
 
 export const createCategoryCtrl = asyncHandler(async (req, res, next) => {
   const { name, status } = req.body;

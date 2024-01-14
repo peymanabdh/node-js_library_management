@@ -18,12 +18,16 @@ const db = {};
 
 // let sequelize;
 
-const sequelize = new Sequelize('node_library_manegment', 'peyman',
+const sequelize = new Sequelize(
+  "node_library_manegment",
+  "root",
 
-'123456', {
-  host: "127.0.0.1",
-  dialect: "mysql",
-});
+  "",
+  {
+    host: "127.0.0.1",
+    dialect: "mysql",
+  }
+);
 
 // db.sequelize = sequelize;
 // db.Sequelize = Sequelize;
