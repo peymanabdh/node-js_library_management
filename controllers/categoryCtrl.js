@@ -84,3 +84,91 @@ export const createCategoryCtrl = asyncHandler(async (req, res, next) => {
 // @desc    Get all categories
 // @route   GET /api/categories
 // @access  Public
+
+export const getListCategoryCtrl = asyncHandler(async (req, res, next) => {
+  const all_categories = await Category.findAll();
+
+  res.render("admin/category/list-category", {
+    categories: all_categories,
+  });
+});
+export const getEditCategoryCtrl = asyncHandler(async (req, res, next) => {
+  await Category.findOne({
+    where: {
+      id: {
+        [Op.eq]: req.params.cat_id,
+      },
+    },
+  }).then((data) => {
+    res.render("admin/category/edit-category", {
+      category: data,
+    });
+  });
+});
+export const EditCategoryCtrl = asyncHandler(async (req, res, next) => {
+  await Category.findOne({
+    where: {
+      [Op.and]: [
+        {
+          id: {
+            [Op.ne]: req.params.cat_id,
+          },
+          name: {
+            [Op.eq]: req.body.name,
+          },
+        },
+      ],
+    },
+  }).then((data) => {
+    if (data) {
+      //console.log(data);
+      req.flash("error", "کتگوری وجود دارد");
+      res.redirect("/admin/edit-category/" + req.params.cat_id);
+    } else {
+      Category.update(
+        {
+          name: req.body.name,
+          status: req.body.status,
+        },
+        {
+          where: {
+            id: req.params.cat_id,
+          },
+        }
+      ).then((data) => {
+        if (data) {
+          req.flash("success", "کتگوری اپدیت شد");
+        } else {
+          req.flash("error", "کتگوری اپدیت نشد");
+        }
+        res.redirect("/admin/edit-category/" + req.params.cat_id);
+      });
+    }
+  });
+});
+export const deleteCategory = asyncHandler(async (req, res, next) => {
+  await Category.findOne({
+    where: {
+      id: {
+        [Op.eq]: req.body.category_id,
+      },
+    },
+  }).then((data) => {
+    if (data) {
+      Category.destroy({
+        where: {
+          id: {
+            [Op.eq]: req.body.category_id,
+          },
+        },
+      }).then((status) => {
+        if (status) {
+          req.flash("success", "کتگوری جذف شد");
+        } else {
+          req.flash("error", "کتگوری حذف نشد");
+        }
+        res.redirect("/admin/list-category");
+      });
+    }
+  });
+});
