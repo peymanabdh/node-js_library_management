@@ -1,28 +1,20 @@
-// import { import as dynamicImport } from 'node:node-esm-resolve';
-import mysql from "mysql2";
-// const fs = require("fs");
-import fs from "fs";
-// const path = require("path");
-import path from "path";
-// console.log(__dirname);
-// const Sequelize = require("sequelize");
 import Sequelize from "sequelize";
 // const process = require("process");
 import process from "process";
+import dotenv from "dotenv"
+dotenv.config()
 // const basename = path.basename(__dirname);
 const env = process.env.NODE_ENV || "development";
 // const config = require(__dirname + "/../config/config.js")[env];
-import config from "../config/config.js";
 
 const db = {};
 
 // let sequelize;
 
-const sequelize = new Sequelize('node_library_manegment', 'peyman',
-
-'123456', {
-  host: "127.0.0.1",
-  dialect: "mysql",
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER,
+  process.env.DB_PASWORD, {
+  host: process.env.DB_HOST,
+  dialect:process.env.DB_DIALECT,
 });
 
 // db.sequelize = sequelize;

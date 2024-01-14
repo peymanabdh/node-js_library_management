@@ -1,4 +1,6 @@
 'use strict';
+import sequelize from "./index.js";
+import { Sequelize, DataTypes, Model } from "sequelize";
 const {
   Model
 } = require('sequelize');
