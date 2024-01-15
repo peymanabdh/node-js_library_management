@@ -1,3 +1,4 @@
+import Category from "./category.js";
 import sequelize from "./index.js";
 import { Model, DataTypes } from "sequelize";
 
@@ -9,7 +10,9 @@ class Book extends Model {
    */
   static associate(models) {
     // define association here
-    Book.belongsTo(models.Category);
+    //console.log('Category associated with: Product');
+    //Book.belongsTo(models.Category);
+   // Book.belongsTo(Category, {foreignKey: 'categoryId' });
   }
 }
 Book.init(

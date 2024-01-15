@@ -3,7 +3,7 @@ import Book from "../models/book.js";
 import { Sequelize } from "sequelize";
 import Category from "../models/category.js";
 const Op = Sequelize.Op;
-
+Book.belongsTo(Category, {foreignKey: 'categoryId' });
 export const getBookCtrl = asyncHandler(async (req, res, next) => {
   const categories = Category.findAll({
     where: {
@@ -69,11 +69,15 @@ export const sendPostBookCtrl = asyncHandler(async (req, res, next) => {
   }
 });
 export const getListBookCtrl = asyncHandler(async (req, res, next) => {
+  
   const Books = await Book.findAll({
     include: {
       model: Category,
+      // attributes:["name"]
     },
   });
-  res.json(Books);
-  //res.render("admin/book/list-book");
+  // res.json(Books);
+  res.render("admin/book/list-book",{
+    books:Books
+  });
 });
