@@ -3,6 +3,7 @@ import createError from "http-errors";
 // var express = require("express");
 import express from "express";
 // var path = require("path");
+import fileupload from "express-fileupload";
 import path, { dirname } from "path";
 // var cookieParser = require("cookie-parser");
 import cookieParser from "cookie-parser";
@@ -42,6 +43,12 @@ app.use(
 );
 app.use(flash());
 
+app.use(
+  fileupload({
+    createParentPath: true,
+  })
+);
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -62,9 +69,9 @@ app.use("/", currencyRouter);
 app.use("/", daysSettingRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development

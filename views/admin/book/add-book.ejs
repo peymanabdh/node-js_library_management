@@ -1,4 +1,9 @@
 <%- include("../partials/header") %>
+<style>
+  #frm-add-book label.error{
+    color: red;
+  }
+</style>
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -34,21 +39,24 @@
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body">
-                        <form role="form">
+                        <form method="post" action="/admin/add-book/" id="frm-add-book" name="frm-add-book" enctype="multipart/form-data">
                           <div class="row">
                             <div class="col-sm-6">
                               <!-- text input -->
                               <div class="form-group">
                                 <label>name</label>
-                                <input type="text" name="book_name" class="form-control" placeholder="Enter ...">
+                                <input required type="text" name="book_name" class="form-control" placeholder="Enter ...">
                               </div>
                             </div>
                             <div class="col-sm-6">
                                 <!-- select -->
                                 <div class="form-group">
                                   <label>category</label>
-                                  <select name="dd_category" class="form-control">
+                                  <select required name="dd_category" class="form-control">
                                     <option value="">choose category</option>
+                                    <% categories.forEach((data)=>{ %>
+                                      <option value="<%= data.id %>"><%= data.name %></option>
+                                    <% }) %>
                                   </select>
                                 </div>
                               </div>
@@ -58,7 +66,7 @@
                                 <!-- textarea -->
                                 <div class="form-group">
                                   <label>description</label>
-                                  <textarea name="book_desc" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                  <textarea required name="book_desc" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -93,7 +101,7 @@
                                 <!-- select -->
                                 <div class="form-group">
                                   <label>status</label>
-                                  <select class="form-control">
+                                  <select class="form-control" name="book_status">
                                     <option value="1">active</option>
                                     <option value="0">inactive</option>
                                   </select>

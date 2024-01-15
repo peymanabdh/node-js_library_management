@@ -6,22 +6,6 @@ const Op = Sequelize.Op;
 export const getCategoryCtrl = asyncHandler(async (req, res, next) => {
   res.render("admin/category/add-category");
 });
-// export const postgetCategoryCtrl = asyncHandler(async (req, res, next) => {
-//   const category = await Category.create({
-//     name: req.body.name,
-//     status: req.body.status,
-//     }).then(() => {
-//      const data =  res.json({
-//         status: "success",
-//         message: "Category created successfully",
-//         category,
-//       });
-//       console.log(data);
-//     }).then(()=>{
-//       res.redirect("admin/category/add-category");
-//     });
-//   // res.redirect("/admin");
-// });
 
 export const postgetCategoryCtrl = (req, res, next) => {
   Category.findOne({
