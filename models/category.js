@@ -19,6 +19,7 @@ class Category extends Model {
    */
   static associate(models) {
     // define association here
+    Category.belongsTo(models.Book);
   }
 }
 Category.init(
