@@ -1,0 +1,131 @@
+<%- include("../partials/header") %>
+<style>
+  #frm-add-book label.error{
+    color: red;
+  }
+</style>
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Edit book</h1>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Edit</li>
+                  </ol>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+  
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <!-- Small boxes (Stat box) -->
+             <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements disabled -->
+                    <div class="card card-warning">
+                      <div class="card-header">
+                        <h3 class="card-title">Edit book</h3>
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body">
+                        <form method="post" action="/admin/edit-book/<%= book.id %>" id="frm-add-book" name="frm-add-book" enctype="multipart/form-data">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <!-- text input -->
+                              <div class="form-group">
+                                <label>name</label>
+                                <input required type="text" name="book_name" class="form-control" placeholder="Enter ..." value="<%= book.name %>">
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- select -->
+                                <div class="form-group">
+                                  <label>category</label>
+                                  <select required name="dd_category" class="form-control">
+                                    <option value="">choose category</option>
+                                    <% categories.forEach((data)=>{ %>
+                                      <option <% if(book.categoryId == data.id){ %> selected <% } %>  value="<%= data.id %>"><%= data.name %></option>
+                                    <% }) %>
+                                  </select>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                                <!-- textarea -->
+                                <div class="form-group">
+                                  <label>description</label>
+                                  <textarea required name="book_desc" class="form-control" rows="3" placeholder="Enter ..."><%= book.description %></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- text input -->
+                                <div class="form-group">
+                                  <label>amount</label>
+                                  <input type="text" name="amount" class="form-control" placeholder="Enter ..." value="<%= book.amount %>">
+                                </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                                <!-- text input -->
+                                <div class="form-group">
+                                  <label>cover image</label>
+                                  <div class="custom-file">
+                                    <input type="file" name="cover_image" class="custom-file-input" id="exampleInputFile" value="<%= book.cover_image %>">
+                                    <br>
+                                    <img src="<%= book.cover_image %>" width="40" height="40" alt="">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- text input -->
+                                <div class="form-group">
+                                  <label>author</label>
+                                  <input type="text" name="author" class="form-control" placeholder="Enter ..." value="<%= book.author %>">
+                                </div>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-6">
+                                <!-- select -->
+                                <div class="form-group">
+                                  <label>status</label>
+                                  <select class="form-control" name="book_status">
+                                    <option <% if(book.status == '1'){ %> selected <% } %> value="1">active</option>
+                                    <option <% if(book.status == '0'){ %> selected <% } %>  value="0">inactive</option>
+                                  </select>
+                                </div>
+                              </div>
+                          </div>
+                          <button class="btn btn-primary" type="submit">submit</button>
+                        
+                        </form>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <!-- general form elements disabled -->
+                    
+                    <!-- /.card -->
+                  </div>
+             </div>
+             
+            </div>
+            <!-- /.container-fluid -->
+          </section>
+          <!-- /.content -->
+        </div>
+<%- include("../partials/footer") %>

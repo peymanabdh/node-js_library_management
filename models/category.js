@@ -7,7 +7,6 @@
 //   status: DataTypes.ENUM("1", "0"),
 // });
 
-// export default Category;
 import sequelize from "./index.js";
 import { Model, DataTypes } from "sequelize";
 
@@ -24,6 +23,7 @@ class Category extends Model {
 }
 Category.init(
   {
+    //category_id :{type: DataTypes.INTEGER, autoIncrement: true, allowNull: false, primaryKey: true},
     name: DataTypes.STRING,
     status: DataTypes.ENUM("1", "0"),
   },
