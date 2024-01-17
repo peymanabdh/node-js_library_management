@@ -59,7 +59,7 @@ app.use("/admin", express.static(path.join(__dirname, "public")));
 app.use("/admin/:any", express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/", usersRouter);
 app.use("/", adminRouter);
 app.use("/", categoryRouter);
 app.use("/", bookRouter);
@@ -69,9 +69,9 @@ app.use("/", currencyRouter);
 app.use("/", daysSettingRouter);
 
 // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
+app.use(function (req, res, next) {
+  next(createError(404));
+});
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development

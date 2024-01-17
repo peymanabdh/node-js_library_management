@@ -4,7 +4,7 @@
             <div class="container-fluid">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h1 class="m-0 text-dark">Add user</h1>
+                  <h1 class="m-0 text-dark">edit user</h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
@@ -30,24 +30,24 @@
                     <!-- general form elements disabled -->
                     <div class="card card-warning">
                       <div class="card-header">
-                        <h3 class="card-title">add user</h3>
+                        <h3 class="card-title">edit user</h3>
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body">
-                        <form action="/admin/add-user" method="post" id="frm-add-user">
+                        <form action="/admin/edit-user/<%= users.id %>" method="post" id="frm-edit-user">
                           <div class="row">
                             <div class="col-sm-6">
                               <!-- text input -->
                               <div class="form-group">
                                 <label>name</label>
-                                <input type="text" name="user_name" class="form-control" placeholder="Enter ...">
+                                <input type="text" name="user_name" value="<%= users.name %>" class="form-control" placeholder="Enter ...">
                               </div>
                             </div>
                             <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                   <label>email</label>
-                                  <input type="text" name="user_email" class="form-control" placeholder="Enter ...">
+                                  <input type="text" name="user_email" value="<%= users.email %>" class="form-control" placeholder="Enter ...">
                                 </div>
                               </div>
                           </div>
@@ -56,7 +56,7 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                   <label>mobile</label>
-                                  <input type="text" name="user_mobile" class="form-control" placeholder="Enter ...">
+                                  <input type="text" name="user_mobile" class="form-control" value="<%= users.mobile %>" placeholder="Enter ...">
                                 </div>
                               </div>
                               <div class="col-sm-6">
@@ -64,8 +64,8 @@
                                 <div class="form-group">
                                   <label>gender</label>
                                   <select name="user_gender" class="form-control">
-                                    <option value="male">male</option>
-                                    <option value="female">female</option>
+                                    <option <% if(users.gender == 'male'){ %> selected <% } %> value="male">male</option>
+                                    <option <% if(users.gender == 'female'){ %> selected <% } %>  value="female">female</option>
                                   </select>
                                 </div>
                               </div>
@@ -75,7 +75,7 @@
                                 <!-- textarea -->
                                 <div class="form-group">
                                   <label>address</label>
-                                  <textarea name="user_addres" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                  <textarea name="user_addres" class="form-control" rows="3" placeholder="Enter ..."><%= users.address %></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -83,8 +83,8 @@
                                 <div class="form-group">
                                   <label>status</label>
                                   <select name="user_status" class="form-control">
-                                    <option value="1">active</option>
-                                    <option value="0">deactive</option>
+                                    <option <% if(users.status == '1'){ %> selected <% } %> value="1">active</option>
+                                    <option <% if(users.status == '0'){ %> selected <% } %> value="0">deactive</option>
                                   </select>
                                 </div>
                               </div>

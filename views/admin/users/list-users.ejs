@@ -43,10 +43,38 @@
                         </tr>
                         </thead>
                         <tbody>
+                          <% users.forEach ((data)=>{ %>
+                            <tr>
+                               <td>
+                                <%= data.name %>
+                               </td>
+                               <td>
+                                <%= data.email %>
+                               </td>
+                               <td>
+                                <%= data.mobile %>
+                               </td>
+                               <td>
+                                <% if(data.status=='1'){ %>
+                                  <button class="btn btn-success">Active</button>
+                              <% }else{ %>
+                                  <button class="btn btn-danger">Inactive</button>
+                              <% }%>
+                               </td>
+                               <td class="d-flex">
+                                 <a href="/admin/edit-user/<%= data.id %>" class="btn btn-primary mr-2"><i class="fa fa-edit"></i></a>
+                                 <form method="post" action="/admin/delete-user/<%= data.id %>" id="frm-delete-user-<%= data.id %>">
+                                     <input type="hidden" value="<%= data.id %>" name="user_id">
+                                 </form>
+                                 <a href="javascript:void(0)" onclick="if(confirm('are you sure you want to delete?')){
+                                     $('#frm-delete-user-<%= data.id %>').submit()
+                                 }" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            </tr>
+                         <% }) %>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Name</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>Mobile</th>
                             <th>Status</th>
