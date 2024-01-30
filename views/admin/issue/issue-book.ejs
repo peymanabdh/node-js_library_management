@@ -34,7 +34,7 @@
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body">
-                        <form role="form" method="post" action="/admin/issue-book">
+                        <form method="post" action="/admin/issue-book" name="frm_add_issue">
                           <div class="row">
                            
                           </div>
@@ -43,8 +43,11 @@
                                 <!-- select -->
                                 <div class="form-group">
                                   <label>select category</label>
-                                  <select name="dd_category" class="form-control">
+                                  <select name="dd_category" class="form-control" id="isuue-book-category">
                                     <option value="">select category</option>
+                                    <% categories.forEach((data)=>{ %>
+                                      <option value="<%= data.id %>"><%= data.name %></option>
+                                    <% }) %>
                                   </select>
                                 </div>
                               </div>
@@ -52,7 +55,7 @@
                                 <!-- select -->
                                 <div class="form-group">
                                   <label>select book</label>
-                                  <select name="dd_book" class="form-control">
+                                  <select name="dd_book" class="form-control" id="dd_book_lists">
                                     <option value="">select book</option>
                                   </select>
                                 </div>
@@ -65,6 +68,9 @@
                                   <label>select user</label>
                                   <select name="dd_user" class="form-control">
                                     <option value="">select user</option> 
+                                    <% users.forEach((data)=>{ %>
+                                      <option value="<%= data.id %>"><%= data.name %>(<%= data.email %>)</option>
+                                    <% }) %>
                                   </select>
                                 </div>
                               </div>
@@ -74,22 +80,13 @@
                                   <label>how many days we want issue?</label>
                                   <select name="dd_days" class="form-control">
                                     <option value="">choose days</option>
+                                    <option value="7">7 days</option>
+                                    <option value="30">30 days</option>
                                   </select>
                                 </div>
                               </div>
                           </div>
-                          <div class="row">
-                            <div class="col-sm-6">
-                                <!-- select -->
-                                <div class="form-group">
-                                  <label>status</label>
-                                  <select class="form-control">
-                                    <option value="1">active</option>
-                                    <option value="0">deactive</option>
-                                  </select>
-                                </div>
-                              </div>
-                          </div>
+                         
                           <button class="btn btn-primary" type="submit">submit</button>
                         
                         </form>

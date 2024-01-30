@@ -73,7 +73,23 @@
   });
  
   $(document).ready(function ($) {
-            $('#frm-add-category').validate({
+    let app_url="http://localhost:4000"
+    $("#isuue-book-category").on("change",(e)=>{
+      //e.target.value
+         var category_id=e.target.value; 
+         //console.log(category_id);
+      let postData="cat_id="+category_id;
+
+      $.post(app_url+"/admin/category-list-book",postData,(res)=>{
+        let bookHtml= "<option value=''>select book</option>";
+             res.books.forEach(element => {
+              bookHtml +='<option value="'+element.id+'">'+element.name+'</option>';
+             });
+            $("#dd_book_lists").html(bookHtml);
+      })
+
+     });
+    $('#frm-add-category').validate({
                 rules: {
                   name: {
                     required: true,
@@ -87,7 +103,7 @@
                   },
                 },
             });
-          });
+  });
      
 
 </script>
