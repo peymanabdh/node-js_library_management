@@ -4,6 +4,13 @@ import { Sequelize } from "sequelize";
 import Category from "../models/category.js";
 import User from "../models/user.js"
 import Issue from "../models/issuebook.js"
+
+
+Issue.belongsTo(Category, { foreignKey: "categoryId" });
+Issue.belongsTo(User, { foreignKey: "userId" });
+Issue.belongsTo(Book, { foreignKey: "bookId" });
+
+
 const Op = Sequelize.Op;
 
 export const getIssueCtrl = asyncHandler(async (req, res, next) => {
@@ -92,4 +99,36 @@ export const createIssueCtrl = asyncHandler(async (req, res, next) => {
         res.redirect("/admin/issue-book");
     }
    
+  });
+
+export const getListIssueCtrl = asyncHandler(async (req, res, next) => {
+
+
+  const issueList=await Issue.findAll({
+      include:[
+        {
+          model:Category,
+          attributes:["name"]
+        },
+        {
+          model:Book,
+          attributes:["name"]
+        },
+        {
+          model:User,
+          attributes:["name","email"]
+        }
+      ],
+      attributes:["days_issued","issued_date"],
+      where:{
+        is_returned:{
+          [Op.eq]:"0"
+        }
+      }
+  });
+  // res.json(issueList);
+  res.render("admin/issue/list-issue",{
+    issueList:issueList
+  });
+
   });

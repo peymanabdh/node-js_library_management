@@ -1,8 +1,6 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+import Category from "./category.js";
+import sequelize from "./index.js";
+import { Model, DataTypes } from "sequelize";
   class Admin extends Model {
     /**
      * Helper method for defining associations.
@@ -22,5 +20,4 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Admin',
     timestamps:false
   });
-  return Admin;
-};
+  export default Admin;

@@ -39,10 +39,31 @@
                             <th>book</th>
                             <th>userinfo</th>
                             <th>totaldays</th>
-                            <th>status</th>
+                            
                         </tr>
                         </thead>
                         <tbody>
+                          <% issueList.forEach ((data)=>{ %>
+                            <tr>
+                               <td>
+                                <%= data.Category.name %>
+                               </td>
+                               <td>
+                                <%= data.Book.name %>
+                               </td>
+                               <td>
+                                Name:<%= data.User.name %>
+                                <br>
+                                Email:<%= data.User.email %>
+                               </td>
+                               <td>
+                                <%= data.days_issued %>
+                               </td>
+                               <td>
+                                <%= data.issued_date %>
+                               </td>
+                            </tr>
+                         <% }) %>
                         </tbody>
                         <tfoot>
                             <tr>
@@ -50,7 +71,7 @@
                                 <th>book</th>
                                 <th>userinfo</th>
                                 <th>totaldays</th>
-                                <th>status</th>
+                               
                             </tr>
                         </tfoot>
                       </table>

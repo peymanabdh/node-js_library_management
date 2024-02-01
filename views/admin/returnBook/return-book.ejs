@@ -34,7 +34,7 @@
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body">
-                        <form role="form">
+                        <form action="/admin/return-book" method="post">
                           <div class="row">
                            
                           </div>
@@ -43,8 +43,11 @@
                                 <!-- select -->
                                 <div class="form-group">
                                   <label>select user</label>
-                                  <select name="dd_user" class="form-control">
-                                    <option value="">select category</option>
+                                  <select name="dd_user" class="form-control" id="dd_returned_user">
+                                    <option value="">select user</option>
+                                    <% users.forEach((data)=>{ %>
+                                      <option value="<%= data.id %>"><%= data.name %>(<%= data.email %>)</option>
+                                    <% }) %>
                                   </select>
                                 </div>
                               </div>
@@ -52,7 +55,7 @@
                                 <!-- select -->
                                 <div class="form-group">
                                   <label>select book</label>
-                                  <select name="dd_book" class="form-control">
+                                  <select name="dd_book" class="form-control" id="dd_returned_book_by_user">
                                     <option value="">select book</option>
                                   </select>
                                 </div>

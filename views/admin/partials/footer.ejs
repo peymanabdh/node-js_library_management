@@ -89,7 +89,29 @@
       })
 
      });
-    $('#frm-add-category').validate({
+    
+    
+     let return_url="http://localhost:4000"
+    $("#dd_returned_user").on("change",(e)=>{
+
+      //e.target.value
+      var user_id=e.target.value; 
+         //console.log(category_id);
+      let postData="user_id="+user_id;
+
+      $.post(return_url+"/admin/return-user-list",postData,(res)=>{
+        console.log(res.books);
+        let bookHtml= "<option value=''>select book</option>";
+             res.books.forEach(element => {
+              bookHtml +='<option value="'+element.bookId+'">'+element.Book.name+'</option>';
+             });
+            $("#dd_returned_book_by_user").html(bookHtml);
+      })
+    });
+    //  dd_returned_user
+    
+    
+     $('#frm-add-category').validate({
                 rules: {
                   name: {
                     required: true,

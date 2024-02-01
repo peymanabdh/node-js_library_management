@@ -15,6 +15,7 @@ import session from "express-session";
 import sequelize from "./models/index.js";
 // var logger = require("morgan");
 import logger from "morgan";
+import loginRouter from "./routes/login.js";
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
 import adminRouter from "./routes/admin.js";
@@ -24,6 +25,9 @@ import issueBookRouter from "./routes/issueBook.js";
 import returnBookRouter from "./routes/returnBook.js";
 import currencyRouter from "./routes/currency.js";
 import daysSettingRouter from "./routes/days.js";
+import logoutRouter from "./routes/logout.js";
+
+const  time = new Date(Date.now() + (30))
 // import db from "./models/index.js";
 const app = express();
 
@@ -39,6 +43,7 @@ app.use(
     secret: "my_secret",
     resave: false,
     saveUninitialized: true,
+    cookie: { expires : new Date(Date.now() + (30 * 86400 * 1000)) }
   })
 );
 app.use(flash());
@@ -58,6 +63,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/admin", express.static(path.join(__dirname, "public")));
 app.use("/admin/:any", express.static(path.join(__dirname, "public")));
 
+app.use("/",loginRouter);
+app.use("/",logoutRouter);
 app.use("/", indexRouter);
 app.use("/", usersRouter);
 app.use("/", adminRouter);

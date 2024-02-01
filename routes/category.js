@@ -9,10 +9,11 @@ import {
   EditCategoryCtrl,
   deleteCategory,
 } from "../controllers/categoryCtrl.js";
+import { redirectLogin } from "../middleware/autintacation_session.js";
 
 /* GET home page. */
 categoryRouter
-  .get("/admin/add-category", getCategoryCtrl)
+  .get("/admin/add-category",redirectLogin, getCategoryCtrl)
   .post("/admin/add-category", postgetCategoryCtrl);
 
 categoryRouter.get("/admin/list-category", getListCategoryCtrl);
